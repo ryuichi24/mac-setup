@@ -1,0 +1,11 @@
+# <type>[optional scope][!]: <description>
+# Example: feat(parser): add support for new syntax
+#
+# Body:
+# Provide a detailed description of the change.
+# Explain the motivation and context.
+# Wrap lines at 72 characters.
+#
+# Footer:
+# Include any relevant issues or breaking changes.
+# Example: Closes #123, BREAKING CHANGE: API endpoint updated

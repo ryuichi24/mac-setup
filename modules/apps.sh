@@ -26,6 +26,8 @@ BREW_CLIS=(
     "tree"          # Directory listing command 
     "ripgrep"       # Fast text search tool
     "lazygit"
+
+    "diff-so-fancy" # Improved diff output
     # "imagemagick"   # Image manipulation tools
     # "katana"        # Web application security tool
     # "xtool-org/tap/xtool"  # XTool utilities

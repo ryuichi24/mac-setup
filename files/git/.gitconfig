@@ -2,33 +2,85 @@
   name = <git_user_name>
   email = <git_user_email>
 
-# [core]
-#   editor = nvim
-#   excludesfile = ~/.gitignore_global
-#   autocrlf = input
+[core]
+  compression = 9
+  whitespace = error
+  preloadindex = true
 
-# [alias]
-#   st = status
-#   co = checkout
-#   br = branch
-#   cm = commit
-#   ca = commit --amend
-#   s = status -s
-#   lg = log --oneline --graph --decorate --all
-#   undo = reset --soft HEAD~1
-#   rb = rebase -i
+[advice]
+  statusHints = false
+  addEmptyPathspec = false
+  pushNonFastForward = false
 
-# [push]
-#   default = simple
+[init]
+  defaultBranch = dev
 
-# [color]
-#   ui = auto
+[status]
+  branch = true
+  showStash = true
+  showUntrackedFiles = all
 
-# [diff]
-#   tool = nvimdiff
+[diff]
+  context = 3
+  renames = copies
+  interHunkContext = 10
 
-# [merge]
-#   tool = nvimdiff
+[pager]
+  diff = diff-so-fancy | $PAGER
 
-# [credential]
-#   helper = osxkeychain
+[diff-so-fancy]
+  markEmptyLines = false
+
+[color "diff"]
+  meta = black bold
+  frag = magenta
+  context = white
+  whitespace = yellow reverse
+  old = red
+
+[interactive]
+  diffFilter = diff-so-fancy --patch
+  singlekey = true
+
+[commit]
+  template = ~/.gitmessage
+
+[push]
+  authSetupRemote = true
+  default = current
+  followTags = true
+
+[pull]
+  default = current
+  rebase = true
+
+[rebase]
+  autoStash = true
+  missingCommitsCheck = warn
+
+[log]
+  abbrevCommit = true
+  graphColors = blue,yellow,cyan,magenta,green,red
+
+[color "decorate"]
+  HEAD = red
+  branch = blue
+  tag = yellow
+  remoteBranch = magenta
+
+[color "branch"]
+  current = magenta
+  local = default
+  remote = yellow
+  upstream = green
+  plain = blue
+
+[branch]
+  sort = -committerdate
+
+[tag]
+  sort = -taggerdate
+
+[pager]
+  branch = false
+  tag = false

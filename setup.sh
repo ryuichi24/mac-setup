@@ -45,6 +45,17 @@ else
     exit 1
 fi
 
+# copy .gitmessage file
+git_message_template="./files/git/.gitmessage"
+git_message_dest="$HOME/.gitmessage"
+if [ -f "$git_message_template" ]; then
+    cp "$git_message_template" "$git_message_dest"
+    log_success "Git commit message template has been copied to $git_message_dest"
+else
+    log_error "Git commit message template not found at $git_message_template"
+    exit 1
+fi
+
 # =============================================
 # Mac OS Configurations
 # ============================================
