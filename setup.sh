@@ -84,6 +84,26 @@ fi
 source ./modules/apps.sh
 
 # =============================================
+# Homebrew Tab Resistration
+# =============================================
+
+log_header "Homebrew Tab Resitration"
+for item in "${BREW_TAPS[@]}"; do
+    log_info "Registering TAP: $item"
+    if brew tap | grep -qx "$item"; then
+        log_warn "$item is already registered"
+        continue
+    fi
+    
+    if ! brew tap "$item"; then
+        log_error "Failed to register a tap: $item"
+        return 1
+    fi
+    
+    log_success "Succssfully registered the tap: $item"
+done
+
+# =============================================
 # CLI Installations (Homebrew formulae)
 # =============================================
 log_header "CLI Installations"

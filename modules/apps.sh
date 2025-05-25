@@ -5,6 +5,8 @@
 # =============================================
 BREW_TAPS=(
     "lyraphase/pcloud"      # pCloud Drive support
+    # https://github.com/Homebrew/homebrew-cask-fonts?utm_source=chatgpt.com
+    # "homebrew/cask-fonts"
 )
 
 # =============================================
@@ -21,6 +23,9 @@ BREW_CLIS=(
     "neovim"        # Text editor
     "ollama"        # AI models tool
     "yt-dlp"        # Media downloader
+    "tree"          # Directory listing command 
+    "ripgrep"       # Fast text search tool
+    "lazygit"
     # "imagemagick"   # Image manipulation tools
     # "katana"        # Web application security tool
     # "xtool-org/tap/xtool"  # XTool utilities
@@ -67,6 +72,7 @@ CASK_APPS=(
     # "maccy"                # Clipboard manager
     # "font-symbols-only-nerd-font"  # Nerd fonts
     # "qt-creator"           # Qt IDE
+    font-meslo-lg-nerd-font # font
 )
 
 # =============================================
