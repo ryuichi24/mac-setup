@@ -170,18 +170,21 @@
   // ============================================
   // folding keybindings
   // ============================================
+  // tiggle fold
   {
-    "key": "space f o",
+    "key": "f f",
     "command": "editor.toggleFold",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
+  // fold all
   {
-    "key": "space f a",
+    "key": "shift+f shift+f",
     "command": "editor.foldAll",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
+  // unfold all
   {
-    "key": "space f u",
+    "key": "u u",
     "command": "editor.unfoldAll",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
@@ -212,6 +215,20 @@
   // ============================================
   // Editor keybindings
   // ============================================
+  {
+    "command": "vscode-neovim.send",
+    "key": "j",
+    "when": "editorTextFocus && neovim.mode != insert",
+    "args": "<Esc>gj",
+    "override": true
+  },
+  {
+    "command": "vscode-neovim.send",
+    "key": "k",
+    "when": "editorTextFocus && neovim.mode != insert",
+    "args": "<Esc>gk",
+    "override": true
+  },
   {
     "key": "space m r",
     "command": "workbench.action.moveEditorToRightGroup",
@@ -306,7 +323,6 @@
     "key": "ctrl+n",
     "when": "(neovim.mode == 'normal' || neovim.mode == 'visual') && (editorTextFocus || !inputFocus)"
   },
-
   {
     "args": {
       "commands": [
