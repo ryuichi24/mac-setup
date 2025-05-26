@@ -26,6 +26,7 @@ BREW_CLIS=(
     "tree"          # Directory listing command 
     "ripgrep"       # Fast text search tool
     "lazygit"
+    "gh"            # GitHub CLI
 
     "diff-so-fancy" # Improved diff output
     # "imagemagick"   # Image manipulation tools
