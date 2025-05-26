@@ -35,17 +35,6 @@
     "key": "ctrl+k",
     "when": "inQuickOpen"
   },
-  // {
-  //   "key": "alt+j",
-  //   "command": "workbench.action.quickOpenSelectNext",
-  //   "when": "inQuickOpen"
-  // },
-  // {
-  //   "key": "alt+k",
-  //   "command": "workbench.action.quickOpenSelectPrevious",
-  //   "when": "inQuickOpen"
-  // },
-  //search.action.focusNextSearchResult
   // find string within the current file
   {
     "command": "actions.find",
@@ -94,7 +83,7 @@
     "key": "f",
     "when": "filesExplorerFocus && !inputFocus"
   },
-  // open file in a new created editor group when there is only one editor group. 
+  // open file in a new created editor group when there is only one editor group.
   {
     "command": "runCommands",
     "key": "g",
@@ -178,7 +167,9 @@
     "key": "ctrl+j",
     "when": "neovim.mode !== 'insert' && !editorHoverFocused && !inQuickOpen"
   },
-  //
+  // ============================================
+  // folding keybindings
+  // ============================================
   {
     "key": "space f o",
     "command": "editor.toggleFold",
@@ -194,6 +185,10 @@
     "command": "editor.unfoldAll",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
+  // ============================================
+  // Resizing keybindings
+  // ============================================
+  //
   // {
   //   "key": "ctrl+w",
   //   "command": "workbench.action.increaseViewWidth",
@@ -214,6 +209,9 @@
     "command": "workbench.action.decreaseViewHeight",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
+  // ============================================
+  // Editor keybindings
+  // ============================================
   {
     "key": "space m r",
     "command": "workbench.action.moveEditorToRightGroup",
@@ -256,11 +254,6 @@
     "key": "alt+k",
     "command": "selectPrevSuggestion",
     "when": "editorTextFocus && suggestWidgetVisible && neovim.mode == 'insert'"
-  },
-  {
-    "command": "workbench.action.toggleSidebarVisibility",
-    "key": "cmd+b",
-    "when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus)"
   },
   {
     "command": "workbench.action.nextEditorInGroup",
