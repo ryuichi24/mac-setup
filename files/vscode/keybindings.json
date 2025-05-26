@@ -23,17 +23,27 @@
   {
     "command": "list.focusDown",
     "key": "shift+enter",
-    "when": "neovim.mode != 'insert' && searchViewletFocus"
+    "when": "searchViewletFocus"
+  },
+  {
+    "command": "workbench.action.quickOpenNavigateNextInFilePicker",
+    "key": "ctrl+j",
+    "when": "inQuickOpen"
+  },
+  {
+    "command": "workbench.action.quickOpenNavigatePreviousInFilePicker",
+    "key": "ctrl+k",
+    "when": "inQuickOpen"
   },
   // {
-  //   "command": "editor.action.moveLinesDownAction",
-  //   "key": "ctrl+j",
-  //   "when": "neovim.mode != 'insert' && searchViewletFocus"
+  //   "key": "alt+j",
+  //   "command": "workbench.action.quickOpenSelectNext",
+  //   "when": "inQuickOpen"
   // },
   // {
-  //   "command": "editor.action.moveLinesUpAction",
-  //   "key": "ctrl+k",
-  //   "when": "neovim.mode != 'insert' && searchViewletFocus"
+  //   "key": "alt+k",
+  //   "command": "workbench.action.quickOpenSelectPrevious",
+  //   "when": "inQuickOpen"
   // },
   //search.action.focusNextSearchResult
   // find string within the current file
@@ -66,6 +76,85 @@
     "command": "workbench.view.explorer",
     "when": "neovim.mode != 'insert' && (editorTextFocus || !inputFocus)"
   },
+  // select next item in tree (file explore)
+  {
+    "command": "list.focusDown",
+    "key": "j",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // select previous item in tree (file explore)
+  {
+    "command": "list.focusUp",
+    "key": "k",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // toggle folder or select file in tree (file explore) list.
+  {
+    "command": "list.selectAndPreserveFocus",
+    "key": "f",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // open file in a new created editor group when there is only one editor group. 
+  {
+    "command": "runCommands",
+    "key": "g",
+    "when": "filesExplorerFocus && !inputFocus && !multipleEditorGroups",
+    "args": {
+      "commands": [
+        "explorer.openAndPassFocus",
+        "workbench.action.moveEditorToRightGroup"
+      ]
+    }
+  },
+  // open file in the current editor group when there are multiple editor groups.
+  {
+    "command": "explorer.openAndPassFocus",
+    "key": "g",
+    "when": "filesExplorerFocus && !inputFocus && multipleEditorGroups"
+  },
+  // rename file in tree (file explore) list.
+  {
+    "command": "renameFile",
+    "key": "r",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // copy file in tree (file explore) list.
+  {
+    "command": "filesExplorer.copy",
+    "key": "c",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // paste file in tree (file explore) list.
+  {
+    "command": "filesExplorer.paste",
+    "key": "v",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // cut file in tree (file explore) list.
+  {
+    "command": "filesExplorer.cut",
+    "key": "x",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // delete file in tree (file explore) list.
+  {
+    "command": "deleteFile",
+    "key": "d",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // create new file in tree (file explore) list.
+  {
+    "command": "explorer.newFile",
+    "key": "a",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // create new folder in tree (file explore) list.
+  {
+    "command": "explorer.newFolder",
+    "key": "shift+a",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  //
   // ============================================
   //  Navigation keybindings
   // ============================================
@@ -160,16 +249,6 @@
   },
   {
     "key": "alt+j",
-    "command": "workbench.action.quickOpenSelectNext",
-    "when": "inQuickOpen"
-  },
-  {
-    "key": "alt+k",
-    "command": "workbench.action.quickOpenSelectPrevious",
-    "when": "inQuickOpen"
-  },
-  {
-    "key": "alt+j",
     "command": "selectNextSuggestion",
     "when": "editorTextFocus && suggestWidgetVisible && neovim.mode == 'insert'"
   },
@@ -234,61 +313,7 @@
     "key": "ctrl+n",
     "when": "(neovim.mode == 'normal' || neovim.mode == 'visual') && (editorTextFocus || !inputFocus)"
   },
-  {
-    "command": "list.selectAndPreserveFocus",
-    "key": "v",
-    "when": "sideBarFocus && !inputFocus"
-  },
-  {
-    "command": "renameFile",
-    "key": "r",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "filesExplorer.copy",
-    "key": "c",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "filesExplorer.paste",
-    "key": "p",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "filesExplorer.cut",
-    "key": "x",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "deleteFile",
-    "key": "d",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "explorer.newFile",
-    "key": "a",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "explorer.newFolder",
-    "key": "shift+a",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "explorer.openToSide",
-    "key": "s",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "list.selectAndPreserveFocus",
-    "key": "v",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "explorer.openAndPassFocus",
-    "key": "enter",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
+
   {
     "args": {
       "commands": [
