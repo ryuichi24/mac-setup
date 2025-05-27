@@ -14,3 +14,6 @@ source $(brew --prefix nvm)/nvm.sh
 if [ -r ~/.bashrc ]; then
     . ~/.bashrc
 fi
+
+# go
+export PATH="$PATH:$(go env GOPATH)/bin"
