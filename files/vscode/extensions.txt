@@ -22,3 +22,4 @@ GitHub.vscode-pull-request-github
 GitHub.copilot
 golang.go
 Continue.continue
+Dart-Code.flutter

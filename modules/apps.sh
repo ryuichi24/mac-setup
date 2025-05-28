@@ -15,6 +15,7 @@ BREW_TAPS=(
 BREW_CLIS=(
     "mas"           # Mac App Store command line interface
     "nvm"           # Node Version Manager
+    "rbenv"         # Ruby Environment
     "pnpm"          # Fast, disk space efficient package manager
     "go"            # Go programming language
     "gcc"           # GNU Compiler Collection

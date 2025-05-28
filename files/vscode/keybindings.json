@@ -23,7 +23,7 @@
   {
     "command": "list.focusDown",
     "key": "shift+enter",
-    "when": "searchViewletFocus"
+    "when": "hasSearchResults"
   },
   {
     "command": "workbench.action.quickOpenNavigateNextInFilePicker",
@@ -172,19 +172,19 @@
   // ============================================
   // tiggle fold
   {
-    "key": "f f",
+    "key": "ctrl+f ctrl+f",
     "command": "editor.toggleFold",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
   // fold all
   {
-    "key": "shift+f shift+f",
+    "key": "ctrl+a ctrl+a",
     "command": "editor.foldAll",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
   // unfold all
   {
-    "key": "u u",
+    "key": "ctrl+u ctrl+u",
     "command": "editor.unfoldAll",
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
@@ -217,17 +217,27 @@
   // ============================================
   {
     "command": "vscode-neovim.send",
-    "key": "j",
-    "when": "editorTextFocus && neovim.mode != insert",
+    "key": "",
+    "when": "editorTextFocus && neovim.mode == 'normal'",
     "args": "<Esc>gj",
     "override": true
   },
   {
     "command": "vscode-neovim.send",
-    "key": "k",
-    "when": "editorTextFocus && neovim.mode != insert",
+    "key": "",
+    "when": "editorTextFocus && neovim.mode == 'normal'",
     "args": "<Esc>gk",
     "override": true
+  },
+  {
+    "command": "editor.action.moveLinesDownAction",
+    "key": "alt+j",
+    "when": "neovim.mode !== 'insert' && editorTextFocus"
+  },
+  {
+    "command": "editor.action.moveLinesUpAction",
+    "key": "alt+k",
+    "when": "neovim.mode !== 'insert' && editorTextFocus"
   },
   {
     "key": "space m r",
@@ -248,12 +258,12 @@
     }
   },
   {
-    "key": "alt+j",
+    "key": "ctrl+j",
     "command": "editor.action.scrollDownHover",
     "when": "editorHoverFocused"
   },
   {
-    "key": "alt+k",
+    "key": "ctrl+k",
     "command": "editor.action.scrollUpHover",
     "when": "editorHoverFocused"
   },
@@ -263,12 +273,12 @@
     "when": "referenceSearchVisible && listFocus"
   },
   {
-    "key": "alt+j",
+    "key": "ctrl+j",
     "command": "selectNextSuggestion",
     "when": "editorTextFocus && suggestWidgetVisible && neovim.mode == 'insert'"
   },
   {
-    "key": "alt+k",
+    "key": "ctrl+k",
     "command": "selectPrevSuggestion",
     "when": "editorTextFocus && suggestWidgetVisible && neovim.mode == 'insert'"
   },
@@ -282,16 +292,7 @@
     "key": "shift+tab",
     "when": "(neovim.mode == 'normal' || neovim.mode == 'visual') && (editorTextFocus || !inputFocus)"
   },
-  {
-    "command": "editor.action.moveLinesDownAction",
-    "key": "shift+j",
-    "when": "neovim.mode !== 'insert' && editorTextFocus"
-  },
-  {
-    "command": "editor.action.moveLinesUpAction",
-    "key": "shift+k",
-    "when": "neovim.mode !== 'insert' && editorTextFocus"
-  },
+
   {
     "command": "editor.action.codeAction",
     "key": "space c a",

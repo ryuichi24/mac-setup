@@ -1,6 +1,6 @@
 {
   "workbench.preferredDarkColorTheme": "Ayu Dark",
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "Ayu Mirage",
   "editor.minimap.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
   "explorer.compactFolders": false,
@@ -32,7 +32,6 @@
     }
   },
   "editor.lineNumbers": "relative",
-  "editor.autoClosingBrackets": true,
-  "editor.showFoldingControls": "always",
-  "editor.autoClosingBracket": "always"
+  "editor.autoClosingBrackets": "always",
+  "editor.showFoldingControls": "always"
 }
