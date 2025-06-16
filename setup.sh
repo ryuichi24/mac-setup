@@ -25,8 +25,24 @@ should_skip() {
 }
 
 # =============================================
-# Source utilities
+# File System
 # =============================================
+
+log_header "Setting up File System..."
+
+if ! should_skip "fs"; then
+    dev_folders=("$HOME/Dev/personal" "$HOME/Dev/work" "$HOME/Dev/personal/tmp" "$HOME/Dev/work/tmp")
+    log_info "Creating development directories..."
+    for folder in "${dev_folders[@]}"; do
+        if [ ! -d "$folder" ]; then
+            mkdir -p "$folder"
+            log_success "Created directory: $folder"
+        else
+            log_warn "Directory already exists: $folder"
+        fi
+    done
+    log_success "File system setup completed."
+fi
 
 # =============================================
 # Load Environment Variables
@@ -125,6 +141,8 @@ if ! should_skip "brew"; then
     if ! has_command "brew" "Homebrew"; then
         log_warn "Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        log_success "Homebrew installed successfully."
     fi
 
 fi
