@@ -21,7 +21,7 @@ BREW_CLIS=(
     # "gcc"     # GNU Compiler Collection
     # "cmake"   # Build system
     # "ffmpeg"  # Multimedia framework
-    # "neovim"  # Text editor
+    "neovim"  # Text editor
     # "ollama"  # AI models tool
     # "yt-dlp"  # Media downloader
     # "tree"    # Directory listing command
@@ -42,18 +42,18 @@ BREW_CLIS=(
 # GUI Applications (Casks)
 # =============================================
 CASK_APPS=(
-    # "item2"              # Terminal emulator
+    "iterm2"              # Terminal emulator
     # "claude"               # AI assistant
     # "windsurf"             # Network utility
     # "cursor"               # Code editor
-    # "visual-studio-code" # Code editor
-    # "brave-browser"      # Web browser
+    "visual-studio-code" # Code editor
+    "brave-browser"      # Web browser
     # "google-chrome"      # Web browser
     # "firefox"            # Web browser
     # "discord"            # Communication platform
     # "whatsapp"           # Messaging app
-    # "bitwarden"          # Password manager
-    # "readdle-spark"      # Email client
+    "bitwarden"          # Password manager
+    "readdle-spark"      # Email client
     # "bruno"              # API client
     # "orbstack"           # Container platform
     # "karabiner-elements" # Keyboard customizer
