@@ -6,7 +6,7 @@ A comprehensive setup script for configuring a new macOS system with development
 
 ## One line Get Started
 
-Make sure you change the value of each env variables below in the script:
+Make sure you change the value of each env variable below in the script:
 
 - GIT_USER_NAME
 - GIT_USER_EMAIL
