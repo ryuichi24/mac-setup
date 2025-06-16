@@ -7,9 +7,14 @@ source "./utils/logger.sh"
 # Parse skipped config types
 SKIP_TYPES=()
 for arg in "$@"; do
-    if [[ "$arg" == --skip=* ]]; then
-        IFS=',' read -ra SKIP_TYPES <<<"${arg#--skip=}"
-    fi
+    case "$arg" in
+        -R)
+            RESTART_MACOS=1
+            ;;
+        --skip=*)
+            IFS=',' read -ra SKIP_TYPES <<<"${arg#--skip=}"
+            ;;
+    esac
 done
 
 # Function to check if a section should be skipped
@@ -271,4 +276,17 @@ if ! should_skip "vim"; then
     cp -r ./files/nvim "$HOME/.config/"
     log_success "Copied Neovim configuration to ~/.config/nvim"
 
+fi
+
+
+# =============================================
+# Rebooting macOS
+# =============================================
+log_header "Rebooting masOS..."
+
+if [[ $RESTART_MACOS -eq 1 ]]; then
+    sudo shutdown -r now
+    log_info "Setup completed successfully! System is rebooting..."
+else
+    log_warn "Skipping rebooting masOS step. \n\nPass -R to restart the system in the end.\n"
 fi
