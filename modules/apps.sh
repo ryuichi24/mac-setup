@@ -63,7 +63,7 @@ CASK_APPS=(
     # "kap"                # Screen recorder
     # "monitorcontrol"     # External display controller
     # "rectangle"          # Window manager
-    # "raycast"            # Productivity tool
+    "raycast"            # Productivity tool
     # "alt-tab"            # Window switcher
     # "cryptomator"        # Encryption tool
     # "iterm2"             # Terminal emulator

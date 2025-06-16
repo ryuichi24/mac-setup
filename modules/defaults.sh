@@ -87,7 +87,13 @@ defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 # disable user interface sound
 defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -bool false
 
-killall SystemUIServer
+# Disable Cmd + Space Spotlight shortcut
+/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.alist
+# Disable Ctrl + Space input source switch shortcut
+# /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:65:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+
+# killall SystemUIServer
 # =============================================
 # Security & Authentication
 # =============================================
