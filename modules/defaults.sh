@@ -75,6 +75,19 @@ defaults write NSGlobalDomain KeyRepeat -int 2                    # Fast key rep
 # key repeat
 defaults write -g ApplePressAndHoldEnabled -bool false
 
+# Mouse and Trackpad settings
+defaults write -g com.apple.trackpad.scaling -float 1 # Trackpad scaling
+defaults write -g com.apple.mouse.scaling -float 1 # Mouse scaling
+
+# Enable tap to click on trackpad
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# Enable tap to click on trackpad for all users
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+
+# disable user interface sound
+defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -bool false
+
+killall SystemUIServer
 # =============================================
 # Security & Authentication
 # =============================================
