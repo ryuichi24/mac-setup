@@ -33,7 +33,7 @@ BREW_CLIS=(
     # "imagemagick"   # Image manipulation tools
     # "katana"        # Web application security tool
     # "xtool-org/tap/xtool"  # XTool utilities
-    # "skhd"   # Hotkey daemon for macOS
+    "koekeishiya/formulae/skhd"   # Hotkey daemon for macOS must to start by `skhd --start-service`
     # dev dependencies
     # "zeromq" # ZeroMQ messaging library
 )
