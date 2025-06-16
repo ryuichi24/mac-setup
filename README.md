@@ -12,10 +12,7 @@ Make sure you change the value of each env variable below in the script:
 - GIT_USER_EMAIL
 
 ```bash
-git clone https://github.com/ryuichi24/mac-setup.git \
-    cd mac-setup \
-    echo "GIT_USER_NAME=example\nGIT_USER_EMAIL=user@example.com" > .env \
-    ./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git
+git clone https://github.com/ryuichi24/mac-setup.git && cd mac-setup && echo "GIT_USER_NAME=example\nGIT_USER_EMAIL=user@example.com" > .env && ./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git
 ```
 
 ## Get Started
