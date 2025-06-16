@@ -1,3 +1,5 @@
+# bash
+alias ls='ls -larth --color=auto'
 # alias
 alias pn='pnpm'
 alias vi='nvim'

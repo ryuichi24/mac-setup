@@ -1,8 +1,37 @@
 #!/bin/bash
 
+# utilities
+source "./utils/command.sh"
+source "./utils/logger.sh"
+
+# Parse skipped config types
+SKIP_TYPES=()
+for arg in "$@"; do
+    if [[ "$arg" == --skip=* ]]; then
+        IFS=',' read -ra SKIP_TYPES <<<"${arg#--skip=}"
+    fi
+done
+
+# Function to check if a section should be skipped
+should_skip() {
+    local section="$1"
+    for skip in "${SKIP_TYPES[@]}"; do
+        if [[ "$skip" == "$section" ]]; then
+            log_warn "Skipping $section configuration..."
+            return 0
+        fi
+    done
+    return 1
+}
+
+# =============================================
+# Source utilities
+# =============================================
+
 # =============================================
 # Load Environment Variables
 # =============================================
+log_header "Loading Environment Variables..."
 if [ -f .env ]; then
     log_info "Loading environment variables from .env file..."
     set -a
@@ -14,198 +43,214 @@ else
 fi
 
 # =============================================
-# Source utilities
+# Mac Configuration
 # =============================================
+log_header "Setting up Mac configuration..."
 
-# logger
-source "./utils/logger.sh"
-source "./utils/command.sh"
+if ! should_skip "mac"; then
 
-# =============================================
-# MacOS Setup Entry Point
-# =============================================
+    source "./modules/defaults.sh"
 
-# Exit on error
-set -e
+fi
 
 # =============================================
 # Git Configuration
 # =============================================
-log_info "Setting up Git configuration..."
-# Read the git config template
-git_config_template="./files/git/.gitconfig"
-git_config_dest="$HOME/.gitconfig"
+log_header "Setting up Git configuration..."
 
-if [ -f "$git_config_template" ]; then
-    # Replace placeholders with environment variables
-    sed "s/<git_user_name>/$GIT_USER_NAME/g; s/<git_user_email>/$GIT_USER_EMAIL/g" "$git_config_template" > "$git_config_dest"
-    log_success "Git configuration has been set up"
-else
-    log_error "Git config template not found at $git_config_template"
-    exit 1
+if ! should_skip "git"; then
+
+    git_config_template="./files/git/.gitconfig"
+    git_config_dest="$HOME/.gitconfig"
+
+    log_info "Setting up .gitconfig..."
+
+    if [ -f "$git_config_template" ]; then
+        log_success ".gitconfig template found at $git_config_template"
+        sed "s/<git_user_name>/$GIT_USER_NAME/g; s/<git_user_email>/$GIT_USER_EMAIL/g" "$git_config_template" >"$git_config_dest"
+        log_success ".gitconfig has been set up at $git_config_dest"
+    else
+        log_error "Git config template not found at $git_config_template"
+        exit 1
+    fi
+
 fi
-
-# copy .gitmessage file
-git_message_template="./files/git/.gitmessage"
-git_message_dest="$HOME/.gitmessage"
-if [ -f "$git_message_template" ]; then
-    cp "$git_message_template" "$git_message_dest"
-    log_success "Git commit message template has been copied to $git_message_dest"
-else
-    log_error "Git commit message template not found at $git_message_template"
-    exit 1
-fi
-
-# ============================================
-# Mac OS Configurations
-# ============================================
-source "./modules/defaults.sh"
 
 # =============================================
-# Move dot files
+# Shell Configuration
 # =============================================
+log_header "Setting up Shell..."
+if ! should_skip "shell"; then
 
-current_shell=$(dscl . -read ~/ UserShell | awk '{ print $2 }')
-bash_path=$(which bash)
+    current_shell=$(echo $SHELL)
+    bash_path=$(which bash)
 
-if [[ "$current_shell" != "$bash_path" ]]; then
-    echo "Changing default shell to Bash..."
-    chsh -s "$bash_path"
-else
-    echo "Shell is already Bash, skipping chsh."
+    log_info "Checking current shell..."
+    if [[ "$current_shell" != "$bash_path" ]]; then
+        log_info "Changing default shell to bash..."
+        chsh -s "$bash_path"
+        log_success "Default shell changed to bash"
+
+    else
+        log_info "Default shell is already set to bash"
+    fi
+
+    log_info "copying dotfiles to home directory..."
+    bash_dotfiles="./files/bash"
+    dotfile_array=(${bash_dotfiles}/.*)
+
+    for dotfile in "${dotfile_array[@]}"; do
+        if [ -f "$dotfile" ]; then
+            log_info "Found dot file: $dotfile"
+            dest="$HOME/$(basename "$dotfile")"
+            log_info "Copying $dotfile to $dest..."
+            cp "$dotfile" "$dest"
+            log_success "Copied $dotfile to $dest"
+        fi
+    done
 fi
 
-# Copy dotfiles (including hidden ones) from ./files/bash to $HOME
-cp -a ./files/bash/. "$HOME/"
+# =============================================
+# Homebrew Setup
+# =============================================
+log_header "Setting up Homebrew..."
+if ! should_skip "brew"; then
 
+    # check if Xcode Command Line Tools are installed
+    if ! has_command "xcode-select" "Xcode Command Line Tools"; then
+        log_warn "To install 'Xcode Command Line Tools', please confirm the popup."
+        xcode-select --install
+    fi
 
-if ! has_command "xcode-select" "Xcode Command Line Tools"; then
-    log_warn "To install 'Xcode Command Line Tools', please confirm the popup."
-    xcode-select --install
+    if ! has_command "brew" "Homebrew"; then
+        log_warn "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
 fi
-
-if ! has_command "brew" "Homebrew"; then
-    log_warn "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-
 
 # import apps
 source ./modules/apps.sh
 
 # =============================================
-# Homebrew Tab Resistration
+# Homebrew Tap Registrations
 # =============================================
+log_header "Registering Homebrew Tabs..."
+if ! should_skip "tap"; then
+    for item in "${BREW_TAPS[@]}"; do
+        log_info "Registering TAP: $item"
+        if brew tap | grep -qx "$item"; then
+            log_warn "$item is already registered"
+            continue
+        fi
 
-log_header "Homebrew Tab Resitration"
-for item in "${BREW_TAPS[@]}"; do
-    log_info "Registering TAP: $item"
-    if brew tap | grep -qx "$item"; then
-        log_warn "$item is already registered"
-        continue
-    fi
-    
-    if ! brew tap "$item"; then
-        log_error "Failed to register a tap: $item"
-        return 1
-    fi
-    
-    log_success "Succssfully registered the tap: $item"
-done
+        if ! brew tap "$item"; then
+            log_error "Failed to register a tap: $item"
+            return 1
+        fi
 
+        log_success "Succssfully registered the tap: $item"
+    done
+
+fi
 # =============================================
-# CLI Installations (Homebrew formulae)
+# CLI tool installations
 # =============================================
-log_header "CLI Installations"
-for item in "${BREW_CLIS[@]}"; do
-    log_info "Installing CLI tool: $item"
-    if brew list --formula | grep -qx "$item"; then
-        log_warn "$item is already installed."
-        continue
-    fi
+log_header "Installing CLI tools..."
+if ! should_skip "cli"; then
+    for item in "${BREW_CLIS[@]}"; do
+        log_info "Installing CLI tool: $item"
+        if brew list --formula | grep -qx "$item"; then
+            log_warn "$item is already installed."
+            continue
+        fi
 
-    if ! brew install "$item"; then
-        log_error "Failed to install CLI tool: $item"
-        return 1
-    fi
-    log_success "Successfully installed CLI tool: $item"
-done
-
+        if ! brew install "$item"; then
+            log_error "Failed to install CLI tool: $item"
+            return 1
+        fi
+        log_success "Successfully installed CLI tool: $item"
+    done
+fi
 # =============================================
-# GUI Installations (Homebrew casks)
+# GUI tool installations
 # =============================================
+log_header "Installing GUI tools..."
+if ! should_skip "gui"; then
+    for item in "${CASK_APPS[@]}"; do
+        log_info "Installing GUI app: $item"
+        if brew list --cask | grep -qx "$item"; then
+            log_warn "$item is already installed."
+            continue
+        fi
 
-log_header "GUI Installations"
-for item in "${CASK_APPS[@]}"; do
-    log_info "Installing GUI app: $item"
-    if brew list --cask | grep -qx "$item"; then
-        log_warn "$item is already installed."
-        continue
-    fi
-
-    if ! brew install --cask "$item"; then
-        log_error "Failed to install GUI app: $item"
-        return 1
-    fi
-    log_success "Successfully installed GUI app: $item"
-done
-
+        if ! brew install --cask "$item"; then
+            log_error "Failed to install GUI app: $item"
+            return 1
+        fi
+        log_success "Successfully installed GUI app: $item"
+    done
+fi
 # =============================================
-# MAS Installations
+# MAS (Mac App Store) app installations
 # =============================================
+log_header "Installing MAS (Mac App Store) apps..."
+if ! should_skip "mas"; then
+    for mas_id in ${MAS_APPS[@]}; do
+        mas_name=$(mas search $mas_id | awk '{ print $2 }')
+        log_info "Installing: $mas_name ($mas_id)"
 
-log_header "MAS Instanlations"
-for mas_id in ${MAS_APPS[@]}; do
-    mas_name=$(mas search $mas_id | awk '{ print $2 }')
-    log_info "Installing: $mas_name ($mas_id)"
+        output=$(mas install "$mas_id" 2>&1)
+        status=$?
 
-    output=$(mas install "$mas_id" 2>&1)
-    status=$?
+        # "-ne" means "not equal" for "numbers"
+        if [[ $status -ne 0 ]]; then
+            log_error "Failed to install $mas_name ($mas_id). Are you logged into the Mac App Store?"
+            return 1
+        fi
 
-    # "-ne" means "not equal" for "numbers"
-    if [[ $status -ne 0 ]]; then
-        log_error "Failed to install $mas_name ($mas_id). Are you logged into the Mac App Store?"
-        return 1
-    fi
+        echo "$output" | grep -q "already installed"
+        already_installed=$?
+        if [[ $already_installed -eq 0 ]]; then
+            log_warn "$mas_name is already installed."
+            continue
+        fi
 
-    echo "$output" | grep -q "already installed"
-    already_installed=$?
-    if [[ $already_installed -eq 0 ]]; then
-        log_warn "$mas_name is already installed."
-        continue
-    fi
-    
-    log_success "Successfully installed $mas_name"
-done
-
+        log_success "Successfully installed $mas_name"
+    done
+fi
 # =============================================
 # VScode Setup
-# =============================================
+# ===========================================
+log_header "Setting up VScode..."
+if ! should_skip "vs"; then
 
-log_header "VScode Setup"
+    cp -f ./files/vscode/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
+    cp -f ./files/vscode/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
 
-cp -f ./files/vscode/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
-cp -f ./files/vscode/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
+    log_info "Installing VScode extensions..."
+    cat ./files/vscode/extensions.txt | while read extension || [[ -n $extension ]]; do
+        code --install-extension $extension --force
+    done
+    log_success "VScode extensions installed successfully."
 
-cat ./files/vscode/extensions.txt | while read extension || [[ -n $extension ]];
-do
-  code --install-extension $extension --force
-done
-
+fi
 # =============================================
 # Neovim Setup
 # =============================================
-log_header "Neovim Setup"
+log_header "Setting up Neovim..."
+if ! should_skip "vim"; then
 
-# Create ~/.config if it doesn't exist
-if [[ ! -d "$HOME/.config" ]]; then
-    mkdir -p "$HOME/.config"
-    log_info "Created ~/.config directory."
-else
-    log_info "~/.config directory already exists. Skipping creation."
+    # Create ~/.config if it doesn't exist
+    if [[ ! -d "$HOME/.config" ]]; then
+        mkdir -p "$HOME/.config"
+        log_info "Created ~/.config directory."
+    else
+        log_info "~/.config directory already exists. Skipping creation."
+    fi
+
+    # Copy nvim config
+    cp -r ./files/nvim "$HOME/.config/"
+    log_success "Copied Neovim configuration to ~/.config/nvim"
+
 fi
-
-# Copy nvim config
-cp -r ./files/nvim "$HOME/.config/"
-log_success "Copied Neovim configuration to ~/.config/nvim"
