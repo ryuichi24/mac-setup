@@ -278,6 +278,45 @@ if ! should_skip "vim"; then
 
 fi
 
+# =============================================
+# Kanata Setup
+# =============================================
+log_header "Setting up Kanata..."
+if ! should_skip "kt"; then
+
+    # Create ~/.config if it doesn't exist
+    if [[ ! -d "$HOME/.config" ]]; then
+        mkdir -p "$HOME/.config"
+        log_info "Created ~/.config directory."
+    else
+        log_info "~/.config directory already exists. Skipping creation."
+    fi
+
+    # Copy kanata config
+    cp -r ./files/kanata "$HOME/.config/"
+    log_success "Copied Kanata configuration to ~/.config/kanata"
+
+    # kanata_plist_name="com.github.ryuichi24.kanata.plist"
+    # kanata_plist="./files/kanata/$kanata_plist_name"
+    # if [ ! -f "$kanata_plist" ]; then
+    #     log_error "Kanata plist file not found at $kanata_plist"
+    #     exit 1
+    # fi
+
+    # if [[ -f "/Library/LaunchAgents/$kanata_plist_name" ]]; then
+    #     sudo launchctl unload /Library/LaunchAgents/$kanata_plist_name
+    #     log_info "Unloading existing Kanata Launch Agent..."
+    # fi
+
+    # log_info "Installing Kanata Launch Agent..."
+    # sudo cp -r $kanata_plist /Library/LaunchAgents/
+    # sudo chown root:wheel /Library/LaunchAgents/$kanata_plist_name
+    # sudo chmod 644 /Library/LaunchAgents/$kanata_plist_name
+    # log_success "Kanata Launch Agent installed successfully."
+    # log_info "Starting Kanata Launch Agent..."
+    # sudo launchctl load -w /Library/LaunchAgents/$kanata_plist_name
+    # log_success "Kanata Launch Agent started successfully."
+fi
 
 # =============================================
 # Rebooting macOS

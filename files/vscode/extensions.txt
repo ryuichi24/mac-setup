@@ -23,3 +23,4 @@ GitHub.copilot
 golang.go
 Continue.continue
 Dart-Code.flutter
+redhat.vscode-xml

@@ -22,3 +22,6 @@ alias gc='git commit -m'
 alias gp='git push'
 alias gu='git pull'
 alias gch='git checkout'
+
+# kanata
+alias initkt='sudo kanata -c $HOME/.config/kanata/config.kbd -d'

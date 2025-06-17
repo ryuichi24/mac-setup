@@ -12,7 +12,7 @@ Make sure you change the value of each env variable below in the script:
 - GIT_USER_EMAIL
 
 ```bash
-git clone https://github.com/ryuichi24/mac-setup.git && cd mac-setup && echo "GIT_USER_NAME=example\nGIT_USER_EMAIL=user@example.com" > .env && ./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git -R
+git clone https://github.com/ryuichi24/mac-setup.git && cd mac-setup && echo "GIT_USER_NAME=example\nGIT_USER_EMAIL=user@example.com" > .env && ./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git,kt -R
 ```
 
 ## Get Started
@@ -34,7 +34,7 @@ GIT_USER_EMAIL=your_email@example.com" > .env
 3. Run the setup script:
 
 ```bash
-./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git -R
+./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git,kt -R
 ```
 
 ## Configuration Options
@@ -42,7 +42,7 @@ GIT_USER_EMAIL=your_email@example.com" > .env
 Use the `--skip` flag to skip specific setup steps:
 
 ```bash
-./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git
+./setup.sh --skip=mac,brew,shell,tap,cli,gui,mas,vim,vs,git,kt
 ```
 
 You can also use the `-R` flag to control whether the computer restarts after the setup is complete:
@@ -63,6 +63,7 @@ Available skip options:
 - `vim`: Neovim configuration
 - `vs`: VSCode configuration
 - `git`: Git configuration
+- `kt`: Kanata configuration
 
 ## Project Structure
 
