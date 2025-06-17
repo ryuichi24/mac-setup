@@ -24,6 +24,7 @@ BREW_CLIS=(
     "neovim"  # Text editor
     "lua"      # Lua programming language
     "lua-language-server"   # Language server for Lua
+    "kanata"    # keymap remapper
     # "ollama"  # AI models tool
     # "yt-dlp"  # Media downloader
     # "tree"    # Directory listing command
@@ -58,7 +59,7 @@ CASK_APPS=(
     "readdle-spark"      # Email client
     # "bruno"              # API client
     # "orbstack"           # Container platform
-    # "karabiner-elements" # Keyboard customizer
+    "karabiner-elements" # Keyboard customizer
     # "microsoft-teams"    # Communication platform
     # "betterdisplay"      # Display management
     # "handbrake"          # Video transcoder
