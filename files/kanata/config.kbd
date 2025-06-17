@@ -13,25 +13,84 @@
   hold-time-slow 300 
 )
 
+
 (defalias
+    ;; Layer toggles
     l_nav (layer-toggle nav)
+    l_num (layer-toggle num)
+    l_symbol (layer-toggle symbol)
+
+    ;; Layer Keys
     caps (tap-hold $tap-time $hold-time caps @l_nav)
+    n (tap-hold $tap-time $hold-time n @l_num)
+    f (tap-hold $tap-time $hold-time f @l_symbol)
+
+    ;; Symbols
+    ! S-1
+    @ S-2
+    # S-3
+    $ S-4
+    % S-5
+    ^ S-6
+    & S-7
+    * S-8
+    ? S-/
+    + S-=
+    _ S-- 
+    | S-\
+    : S-;
+    ` S-`
+    ~ S-`
+    ;; brackets
+    lp S-9
+    rp S-0
+    { S-[
+    } S-]
+    < S-,
+    > S-.
+    ;;
+    lmet (tap-hold $tap-time $hold-time bspc lmet)
+    rmet (tap-hold $tap-time $hold-time ret lmet)
+
+    ;; MacOS specific keys
+    mc C-up ;; Mission Control
+    sls M-spc ;; Spotlight Search
+    dtn S-C-A-M-f5 ;; Dictation
+    dnd S-C-A-M-f6 ;; Do Not Disturb
 )
 
 (deflayer base 
-    esc f1 f2 f3  f4 f5 f6 f7  f8 f9 f10 f11  f12
+    esc  🔅    🔆    @mc   @sls  @dtn  @dnd  ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
     ` 1 2 3  4 5 6 7  8 9 0 -  = bspc
     tab q w e  r t y u  i o p [  ] \
-    @caps a s d  f g h j  k l ; '  ret 
-    lsft z x c  v b n m  , . / rsft 
-    fn lctl lalt lmet  spc rmet ralt left  down up right
+    @caps a s d  @f g h j  k l ; '  ret 
+    lsft z x c  v b @n m  , . / rsft 
+    fn lctl lalt @lmet  spc @rmet ralt left  down up right
 )
 
 (deflayer nav
     esc XX XX XX  XX XX XX XX  XX XX XX XX  XX
     XX XX XX XX  XX XX XX XX  XX XX XX XX  XX bspc
+    XX XX XX XX  XX XX XX XX  XX XX XX XX  XX XX
+    XX XX XX XX  XX XX left down  up right XX XX  ret 
+    XX XX XX XX  XX XX XX XX  XX XX XX XX 
+    XX lctl lalt lmet  XX XX XX XX  XX XX XX
+)
+
+(deflayer symbol
+    esc XX XX XX  XX XX XX XX  XX XX XX XX  XX
+    XX XX XX XX  XX XX XX XX  XX XX XX XX  XX XX
+    XX @? @* @!  XX @~ XX @lp  @rp XX @% XX  XX XX
+    XX @@ XX @$  XX XX @# [  ] XX XX XX  XX 
+    XX XX XX @^  XX XX @{ @}  @< @> XX XX 
+    XX XX XX XX  = XX XX XX  XX XX XX
+)
+
+(deflayer num
+    esc XX XX XX  XX XX XX XX  XX XX XX XX  XX
+    XX XX XX XX  XX XX XX XX  XX XX XX XX  XX bspc
     XX 1 2 3  XX XX XX XX  XX XX XX XX  XX XX
-    XX 4 5 6  XX XX left down  up right XX XX  XX 
+    XX 4 5 6  XX XX XX XX  XX XX XX XX  XX 
     XX 7 8 9  XX XX XX XX  XX XX XX XX 
     XX XX XX 0  XX XX XX XX  XX XX XX
 )
@@ -40,4 +99,5 @@
       process-unmapped-keys yes
       log-layer-changes yes
 )
+
 
