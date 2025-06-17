@@ -22,6 +22,8 @@ BREW_CLIS=(
     # "cmake"   # Build system
     # "ffmpeg"  # Multimedia framework
     "neovim"  # Text editor
+    "lua"      # Lua programming language
+    "lua-language-server"   # Language server for Lua
     # "ollama"  # AI models tool
     # "yt-dlp"  # Media downloader
     # "tree"    # Directory listing command
@@ -36,7 +38,6 @@ BREW_CLIS=(
     "koekeishiya/formulae/skhd"   # Hotkey daemon for macOS must to start by `skhd --start-service`
     # dev dependencies
     # "zeromq" # ZeroMQ messaging library
-    "lua"      # Lua programming language
 )
 
 # =============================================
