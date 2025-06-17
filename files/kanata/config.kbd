@@ -8,9 +8,6 @@
 )
 
 (defvar
-  ;; Note: consider using different time values for your different fingers.
-  ;; For example, your pinkies might be slower to release keys and index
-  ;; fingers faster.
   tap-time 200
   hold-time 200 
   hold-time-slow 300 
