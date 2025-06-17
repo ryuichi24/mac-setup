@@ -37,6 +37,7 @@ BREW_CLIS=(
     # "xtool-org/tap/xtool"  # XTool utilities
     "koekeishiya/formulae/skhd"   # Hotkey daemon for macOS must to start by `skhd --start-service`
     # dev dependencies
+    "pkg-config" # manages compile and link flags for libraries
     "zeromq" # ZeroMQ messaging library
 )
 
