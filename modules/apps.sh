@@ -14,12 +14,12 @@ BREW_TAPS=(
 # =============================================
 BREW_CLIS=(
     "mas"     # Mac App Store command line interface
-    # "nvm"     # Node Version Manager
+    "nvm"     # Node Version Manager
     # "rbenv"   # Ruby Environment
-    # "pnpm"    # Fast, disk space efficient package manager
-    # "go"      # Go programming language
-    # "gcc"     # GNU Compiler Collection
-    # "cmake"   # Build system
+    "pnpm"    # Fast, disk space efficient package manager
+    "go"      # Go programming language
+    "gcc"     # GNU Compiler Collection
+    "cmake"   # Build system
     # "ffmpeg"  # Multimedia framework
     "neovim"  # Text editor
     "lua"      # Lua programming language
@@ -34,11 +34,10 @@ BREW_CLIS=(
 
     # "diff-so-fancy" # Improved diff output
     # "imagemagick"   # Image manipulation tools
-    # "katana"        # Web application security tool
     # "xtool-org/tap/xtool"  # XTool utilities
     "koekeishiya/formulae/skhd"   # Hotkey daemon for macOS must to start by `skhd --start-service`
     # dev dependencies
-    # "zeromq" # ZeroMQ messaging library
+    "zeromq" # ZeroMQ messaging library
 )
 
 # =============================================
@@ -46,33 +45,32 @@ BREW_CLIS=(
 # =============================================
 CASK_APPS=(
     "iterm2"              # Terminal emulator
-    # "claude"               # AI assistant
+    "claude"               # AI assistant
     # "windsurf"             # Network utility
-    # "cursor"               # Code editor
+    "cursor"               # Code editor
     "visual-studio-code" # Code editor
     "brave-browser"      # Web browser
     # "google-chrome"      # Web browser
     # "firefox"            # Web browser
-    # "discord"            # Communication platform
+    "discord"            # Communication platform
     # "whatsapp"           # Messaging app
     "bitwarden"          # Password manager
     "readdle-spark"      # Email client
     # "bruno"              # API client
-    # "orbstack"           # Container platform
+    "orbstack"           # Container platform
     "karabiner-elements" # Keyboard customizer
-    # "microsoft-teams"    # Communication platform
-    # "betterdisplay"      # Display management
-    # "handbrake"          # Video transcoder
-    # "kap"                # Screen recorder
+    "microsoft-teams"    # Communication platform
+    "betterdisplay"      # Display management
+    "handbrake"          # Video transcoder
+    "kap"                # Screen recorder
     # "monitorcontrol"     # External display controller
     # "rectangle"          # Window manager
     "raycast"            # Productivity tool
     # "alt-tab"            # Window switcher
     # "cryptomator"        # Encryption tool
-    # "iterm2"             # Terminal emulator
-    # "obs"                # Streaming software
-    # "blackhole-2ch"      # Audio driver
-    # "blackhole-16ch"     # Audio driver
+    "obs"                # Streaming software
+    "blackhole-2ch"      # Audio driver
+    "blackhole-16ch"     # Audio driver
     # "figma"              # Design tool
     # "obsidian"             # Note-taking app
     # "pcloud-drive"         # Cloud storage
@@ -80,20 +78,19 @@ CASK_APPS=(
     # "vmware-fusion"        # Virtualization
     # "rustdesk"             # Remote desktop
     # "keka"                 # File archiver
-    # "maccy"                # Clipboard manager
+    "maccy"                # Clipboard manager
     # "font-symbols-only-nerd-font"  # Nerd fonts
-    # "qt-creator"           # Qt IDE
+    "qt-creator"           # Qt IDE
     # font-meslo-lg-nerd-font # font
-    # "betterdisplay"      # Display management
 )
 
 # =============================================
 # Mac App Store Applications
 # =============================================
 MAS_APPS=(
-    # 539883307  # LINE
-    # 1507246666 # Presentify
-    # 1517772049 # Urban VPN Desktop
+    539883307  # LINE
+    1507246666 # Presentify
+    1517772049 # Urban VPN Desktop
     # 497799835  # Xcode
-    # 411213048  # LadioCast
+    411213048  # LadioCast
 )
