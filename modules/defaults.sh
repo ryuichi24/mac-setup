@@ -88,7 +88,7 @@ defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -bool false
 
 # Disable Cmd + Space Spotlight shortcut
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.alist
+/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
 # Disable Ctrl + Space input source switch shortcut
 # /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:65:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
 
@@ -101,7 +101,24 @@ echo "🔒 Configuring security settings..."
 
 # Enable Touch ID for sudo
 echo "👆 Configuring Touch ID for sudo authentication..."
-sudo sed -i '' '/pam_tid.so/d' /etc/pam.d/sudo && echo 'auth sufficient pam_tid.so' | sudo tee -a /etc/pam.d/sudo
+TARGET_FILE="/etc/pam.d/sudo"
+LINE="auth sufficient pam_tid.so"
+BACKUP_FILE="${TARGET_FILE}.bak"
+
+# Make a backup
+sudo cp "$TARGET_FILE" "$BACKUP_FILE"
+
+# Check if the line already exists
+if ! grep -Fxq "$LINE" "$TARGET_FILE"; then
+  log_info "Setting up Touch ID for sudo..."
+  sudo sh -c "echo '$LINE' | cat - $TARGET_FILE > ${TARGET_FILE}.new && mv ${TARGET_FILE}.new $TARGET_FILE"
+  log_success "Touch ID sudo configuration complete."
+else
+  log_warn "Touch ID sudo is already configured."
+fi
+
+# Delete the backup
+sudo rm "$BACKUP_FILE"
 
 # =============================================
 # Final Steps
