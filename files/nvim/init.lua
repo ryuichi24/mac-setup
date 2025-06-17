@@ -1,2 +1,2 @@
-require("ryu.core")
-require("ryu.lazy")
+require("main.core")
+require("main.lazy")

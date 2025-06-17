@@ -36,6 +36,7 @@ BREW_CLIS=(
     "koekeishiya/formulae/skhd"   # Hotkey daemon for macOS must to start by `skhd --start-service`
     # dev dependencies
     # "zeromq" # ZeroMQ messaging library
+    "lua"      # Lua programming language
 )
 
 # =============================================
