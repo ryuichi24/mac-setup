@@ -63,9 +63,9 @@
     esc  🔅    🔆    @mc   @sls  @dtn  @dnd  ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
     ` 1 2 3  4 5 6 7  8 9 0 -  = bspc
     tab q w e  r t y u  i o p [  ] \
-    @caps a s d  @f g h j  k l ; '  ret 
+    @caps a s d  f g h j  k l ; '  ret 
     lsft z x c  v b @n m  , . / rsft 
-    fn lctl lalt @lmet  spc @rmet ralt left  down up right
+    fn lctl lalt @lmet spc rmet ralt left  down up right
 )
 
 (deflayer nav
@@ -73,7 +73,7 @@
     XX XX XX XX  XX XX XX XX  XX XX XX XX  XX bspc
     XX XX XX XX  XX XX XX XX  XX XX XX XX  XX XX
     XX XX XX XX  XX XX left down  up right XX XX  ret 
-    XX XX XX XX  XX XX XX XX  XX XX XX XX 
+    lsft XX XX XX  XX XX XX XX  XX XX XX XX 
     XX lctl lalt lmet  XX XX XX XX  XX XX XX
 )
 
